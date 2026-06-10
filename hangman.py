@@ -1,5 +1,9 @@
 import random
 
+wins = 0
+losses = 0
+score = 0
+
 
 def pick_random_word(difficulty):
     """
@@ -58,15 +62,18 @@ def input_letter(dash_array, guesses_allowed, split_word):
     Ends game if win/lose
     """
     used_letters = []
+    end_status = 0
 
     while True:
 
         if ' '.join(dash_array).find('_') == -1:
             print('\n===== YOU WIN =====\n')
+            end_status = 1
             break
 
         if guesses_allowed <= 0:
             print("\n===== Game over =====\n")
+            end_status = 2
             break
 
         letter = input("\nGuess a letter: ")
@@ -97,7 +104,7 @@ def input_letter(dash_array, guesses_allowed, split_word):
             print(' '.join(dash_array))
             print('\nGuesses left: ', guesses_allowed)
             continue
-    pass
+    return end_status
 
 
 def game():
@@ -127,13 +134,21 @@ def game():
     print(' '.join(dash_array))
     print("Allowed number of incorrect guesses: ", guesses_allowed)
     print("Type 'quit' to give up.")
-    input_letter(dash_array, guesses_allowed, split_word)
+    end_status = input_letter(dash_array, guesses_allowed, split_word)
+    end_string = f"The word was {word}"
 
-    return f"The word was {word}"
+    return end_string, end_status
 
 
 while True:
-    print(game())
+    end_string, end_status = game()
+    print(end_string)
+
+    if end_status == 1:
+        wins += 1
+    elif end_status == 2:
+        losses += 1
+    print(f"Wins: {wins} | Losses: {losses}")
 
     again = input(
         "Would you like to play again (Y for yes, anything else for no)? ")
