@@ -2,7 +2,7 @@
 
 ===== WELCOME TO HANGMAN =====
 
-This project recreates the classic game of hangman in a terminal (without the hangman)
+This project recreates the classic game of hangman in a terminal
 
 How to run:
 Run the following command in the terminal
