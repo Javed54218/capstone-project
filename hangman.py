@@ -4,6 +4,127 @@ wins = 0
 losses = 0
 score = 0
 
+hangman_drawings = [r"""
+                    +----+
+                    |    |
+                    |    | 
+                    |    O
+                    |   
+                    |    
+                    |   /|\
+                    |   / \
+                    |=======""",
+                    r"""
+                    +----+
+                    |    |
+                    |    | 
+                    |    O
+                    |   /|\
+                    |   / \
+                    |
+                    |
+                    |=======""",
+                    r"""
+                    +----+
+                    |    |
+                    |    | 
+                    |    O
+                    |   /|\
+                    |   / 
+                    |
+                    |
+                    |=======""",
+                    r"""
+                    +----+
+                    |    |
+                    |    | 
+                    |    O
+                    |   /|\
+                    |   
+                    |
+                    |
+                    |=======""",
+                    r"""
+                    +----+
+                    |    |
+                    |    | 
+                    |    O
+                    |   /|
+                    |   
+                    |
+                    |
+                    |=======""",
+                    r"""
+                    +----+
+                    |    |
+                    |    | 
+                    |    O
+                    |    |
+                    |   
+                    |
+                    |
+                    |=======""",
+                    r"""
+                    +----+
+                    |    |
+                    |    | 
+                    |    O
+                    |    
+                    |   
+                    |
+                    |
+                    |=======""",
+                    r"""
+                    +----+
+                    |    |
+                    |    | 
+                    |    
+                    |    
+                    |   
+                    |
+                    |
+                    |=======""",
+                    r"""
+                    +----+
+                    |    
+                    |    
+                    |    
+                    |    
+                    |   
+                    |
+                    |
+                    |=======""",
+                    r"""
+                    
+                    |
+                    |
+                    |
+                    |
+                    |
+                    |
+                    |
+                    |=======""",
+                    r"""
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                     =======""",
+                    r"""
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                     """]
+
 
 def pick_random_word(difficulty):
     """
@@ -55,6 +176,14 @@ def printing_line(split_word, dash_array, letter):
     print(' '.join(dash_array))
 
 
+def hangman_prints(guesses_allowed):
+    if guesses_allowed > 11:
+        print(hangman_drawings[11])
+    else:
+        print(hangman_drawings[guesses_allowed])
+    pass
+
+
 def input_letter(dash_array, guesses_allowed, split_word):
     """
     Asks user for letter
@@ -79,6 +208,7 @@ def input_letter(dash_array, guesses_allowed, split_word):
         letter = input("\nGuess a letter: ")
 
         if letter == 'quit':
+            end_status = 2
             break
 
         if letter.upper() in used_letters:
@@ -96,11 +226,13 @@ def input_letter(dash_array, guesses_allowed, split_word):
 
         try:
             index_of_letter = split_word.index(letter.upper())
+            hangman_prints(guesses_allowed)
             printing_line(split_word, dash_array, letter.upper())
             print('\nGuesses left: ', guesses_allowed)
             continue
         except:
             guesses_allowed -= 1
+            hangman_prints(guesses_allowed)
             print(' '.join(dash_array))
             print('\nGuesses left: ', guesses_allowed)
             continue
