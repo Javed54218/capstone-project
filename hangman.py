@@ -13,7 +13,7 @@ hangman_drawings = [r"""
                     |    
                     |   /|\
                     |   / \
-                    |=======""",
+                    |_______""",
                     r"""
                     +----+
                     |    |
@@ -23,7 +23,7 @@ hangman_drawings = [r"""
                     |   / \
                     |
                     |
-                    |=======""",
+                    |_______""",
                     r"""
                     +----+
                     |    |
@@ -33,7 +33,7 @@ hangman_drawings = [r"""
                     |   / 
                     |
                     |
-                    |=======""",
+                    |_______""",
                     r"""
                     +----+
                     |    |
@@ -43,7 +43,7 @@ hangman_drawings = [r"""
                     |   
                     |
                     |
-                    |=======""",
+                    |_______""",
                     r"""
                     +----+
                     |    |
@@ -53,7 +53,7 @@ hangman_drawings = [r"""
                     |   
                     |
                     |
-                    |=======""",
+                    |_______""",
                     r"""
                     +----+
                     |    |
@@ -63,7 +63,7 @@ hangman_drawings = [r"""
                     |   
                     |
                     |
-                    |=======""",
+                    |_______""",
                     r"""
                     +----+
                     |    |
@@ -73,7 +73,7 @@ hangman_drawings = [r"""
                     |   
                     |
                     |
-                    |=======""",
+                    |_______""",
                     r"""
                     +----+
                     |    |
@@ -83,7 +83,7 @@ hangman_drawings = [r"""
                     |   
                     |
                     |
-                    |=======""",
+                    |_______""",
                     r"""
                     +----+
                     |    
@@ -93,7 +93,7 @@ hangman_drawings = [r"""
                     |   
                     |
                     |
-                    |=======""",
+                    |_______""",
                     r"""
                     
                     |
@@ -103,7 +103,7 @@ hangman_drawings = [r"""
                     |
                     |
                     |
-                    |=======""",
+                    |_______""",
                     r"""
                     
                     
@@ -113,7 +113,7 @@ hangman_drawings = [r"""
                     
                     
                     
-                     =======""",
+                     _______""",
                     r"""
                     
                     
@@ -177,10 +177,16 @@ def printing_line(split_word, dash_array, letter):
 
 
 def hangman_prints(guesses_allowed):
+    """
+    Prints hangman for every guess done
+    Note that it will not print anything if the number of guesses allowed is greater than 11
+    This is due to the limited number of hangman drawings
+    """
     if guesses_allowed > 11:
         print(hangman_drawings[11])
     else:
         print(hangman_drawings[guesses_allowed])
+
     pass
 
 
@@ -236,6 +242,7 @@ def input_letter(dash_array, guesses_allowed, split_word):
             print(' '.join(dash_array))
             print('\nGuesses left: ', guesses_allowed)
             continue
+
     return end_status
 
 
