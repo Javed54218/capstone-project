@@ -1,8 +1,8 @@
 import random
+import os
 
 wins = 0
 losses = 0
-score = 0
 
 hangman_drawings = [r"""
                     +----+
@@ -125,6 +125,17 @@ hangman_drawings = [r"""
                     
                      """]
 
+if os.path.exists("hangman_high_score.txt"):
+    with open("hangman_high_score.txt") as f:
+        high_score = int(f.read())
+        score = 0
+else:
+    f = open("hangman_high_score.txt", "a")
+    with open("hangman_high_score.txt", "w") as f:
+        f.write("0")
+        high_score = 0
+        score = 0
+
 
 def pick_random_word(difficulty):
     """
@@ -243,7 +254,9 @@ def input_letter(dash_array, guesses_allowed, split_word):
             print('\nGuesses left: ', guesses_allowed)
             continue
 
-    return end_status
+    guesses_left = guesses_allowed
+
+    return end_status, guesses_left
 
 
 def game():
@@ -270,21 +283,25 @@ def game():
             print("Invalid input, try again")
             continue
 
+    print("Previous high score: ", high_score)
+    print("Current total score: ", score)
     print(' '.join(dash_array))
     print("Allowed number of incorrect guesses: ", guesses_allowed)
     print("Type 'quit' to give up.")
-    end_status = input_letter(dash_array, guesses_allowed, split_word)
+    end_status, guesses_left = input_letter(
+        dash_array, guesses_allowed, split_word)
     end_string = f"The word was {word}"
 
-    return end_string, end_status
+    return end_string, end_status, guesses_left
 
 
 while True:
-    end_string, end_status = game()
+    end_string, end_status, guesses_left = game()
     print(end_string)
 
     if end_status == 1:
         wins += 1
+        score += guesses_left
     elif end_status == 2:
         losses += 1
     print(f"Wins: {wins} | Losses: {losses}")
@@ -295,6 +312,11 @@ while True:
     if again.upper() == 'Y':
         continue
     else:
+        if score > high_score:
+            with open("hangman_high_score.txt", "w") as f:
+                f.write(str(score))
+        f.close()
         break
 
+print("Total score: ", score)
 print("Thanks for playing!!!")
