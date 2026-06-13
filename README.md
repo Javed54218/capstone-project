@@ -11,13 +11,18 @@ Run the following command in the terminal
 Make sure words.txt is in the same directory as hangman.py
 
 Project gameplay:
-The terminal will then prompt with a selection of difficulty, which will determine how many guesses the user is allowed:
+The terminal will prompt with a selection of difficulty, which will determine how many guesses the user is allowed:
 1 = easy
 2 = medium
 3 = hard
 
 A word is selected randomly from a list in words.txt
 
-The user must then input letters, which will repeat until the number of guesses allowed reaches zero or the user gets the correct answer.
+The user must then input letters, which will repeat until the number of guesses allowed reaches zero or the user gets the correct answer
+The score is determined by the number of guesses left
 
 The terminal will then ask the user of they want to play again by typing 'y' or 'Y'
+
+If there is no high score file, it gets created, with a default of zero.
+At the end of the session, if the user obtains a score greater than the number in the file, the new high score is written into it
+At the start of every game, the high score and total score is printed
