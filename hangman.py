@@ -113,17 +113,7 @@ hangman_drawings = [r"""
                     
                     
                     
-                     _______""",
-                    r"""
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                     """]
+                     _______""",]
 
 if os.path.exists("hangman_high_score.txt"):
     with open("hangman_high_score.txt") as f:
@@ -139,10 +129,10 @@ else:
 
 def pick_random_word(difficulty):
     """
-    Picks a random word from a text file
-    creates an array of dashes equal to the length of the word
-    Creates an array of singular letters of the word
-    Determines the number of guesses allowed depending on the length of word picked
+    Picks a random word from a text file.
+    creates an array of dashes equal to the length of the word.
+    Creates an array of singular letters of the word.
+    Determines the number of guesses allowed depending on the length of word picked.
     """
 
     split_word = []
@@ -178,7 +168,7 @@ def pick_random_word(difficulty):
 def printing_line(split_word, dash_array, letter):
     """
     Replaces dash with letter if guessed correctly
-    And handles duplicates
+    And handles duplicates.
     """
     for i in range(0, len(split_word)):
         if split_word[i] == letter:
@@ -189,12 +179,12 @@ def printing_line(split_word, dash_array, letter):
 
 def hangman_prints(guesses_allowed):
     """
-    Prints hangman for every guess done
-    Note that it will not print anything if the number of guesses allowed is greater than 11
-    This is due to the limited number of hangman drawings
+    Prints hangman for every guess done.
+    Note that it will not print anything if the number of guesses allowed is greater than 11.
+    This is due to the limited number of hangman drawings.
     """
-    if guesses_allowed > 11:
-        print(hangman_drawings[11])
+    if guesses_allowed > 10:
+        print(hangman_drawings[10])
     else:
         print(hangman_drawings[guesses_allowed])
 
@@ -203,9 +193,9 @@ def hangman_prints(guesses_allowed):
 
 def input_letter(dash_array, guesses_allowed, split_word):
     """
-    Asks user for letter
-    Checks game status after each letter is submitted
-    Ends game if win/lose
+    Asks user for letter.
+    Checks game status after each letter is submitted.
+    Ends game if win/lose.
     """
     used_letters = []
     end_status = 0
@@ -261,7 +251,7 @@ def input_letter(dash_array, guesses_allowed, split_word):
 
 def game():
     """
-    Starts game
+    Starts game and sets difficulty.
     """
     print('\n===== WELCOME TO HANGMAN =====\n')
     print('\n')
@@ -295,28 +285,30 @@ def game():
     return end_string, end_status, guesses_left
 
 
-while True:
-    end_string, end_status, guesses_left = game()
-    print(end_string)
+if __name__ in "__main__":
 
-    if end_status == 1:
-        wins += 1
-        score += guesses_left
-    elif end_status == 2:
-        losses += 1
-    print(f"Wins: {wins} | Losses: {losses}")
+    while True:
+        end_string, end_status, guesses_left = game()
+        print(end_string)
 
-    again = input(
-        "Would you like to play again (Y for yes, anything else for no)? ")
+        if end_status == 1:
+            wins += 1
+            score += guesses_left
+        elif end_status == 2:
+            losses += 1
+        print(f"Wins: {wins} | Losses: {losses}")
+        print("Total score: ", score)
 
-    if again.upper() == 'Y':
-        continue
-    else:
-        if score > high_score:
-            with open("hangman_high_score.txt", "w") as f:
-                f.write(str(score))
-        f.close()
-        break
+        again = input(
+            "Would you like to play again (Y for yes, anything else for no)? ")
 
-print("Total score: ", score)
-print("Thanks for playing!!!")
+        if again.upper() == 'Y':
+            continue
+        else:
+            if score > high_score:
+                with open("hangman_high_score.txt", "w") as f:
+                    f.write(str(score))
+            f.close()
+            break
+
+    print("Thanks for playing!!!")
